@@ -1,0 +1,11 @@
+from scapy.all import sniff, IP
+
+# Define a callback function to process the captured packets
+def packet_callback(packet):
+    if IP in packet:
+        ip_src = packet[IP].src
+        ip_dst = packet[IP].dst
+        print(f"Source: {ip_src} -> Destination: {ip_dst}")
+
+# Start sniffing and apply a filter for IP traffic
+sniff(prn=packet_callback, filter="ip", count=10)
